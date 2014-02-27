@@ -1,0 +1,2 @@
+base:
+  '*': [ omeka, mediawiki, scripto ]
