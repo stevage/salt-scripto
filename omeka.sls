@@ -1,5 +1,6 @@
 {% set dbpassword='banana' %}
-{% set omekadir='{{ omekadir }}/omeka' %}
+{% set wwwdir='/var/www' %}
+{% set omekadir=wwwdir ~ '/omeka' %}
 server_stuff:
   pkg:
     - installed
@@ -76,4 +77,6 @@ modrewrite:
     - source: salt://default
 
 apache2:
-  service.running
+  service:
+    - running
+    - reload: True

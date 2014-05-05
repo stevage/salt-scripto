@@ -13,6 +13,7 @@ Basic usage:
 
 On a clean Ubuntu VM (only tested with Quantal):
 
+    sudo apt-get update && sudo apt-get install -y git-core curl
     curl -L http://bootstrap.saltstack.org | sudo sh
     cd /srv
     sudo git clone http://github.com/stevage/salt-scripto salt
