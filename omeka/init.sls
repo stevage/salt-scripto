@@ -1,8 +1,4 @@
-
-{% set dbpassword='banana' %}
-{% set dbrootpassword='xm98XVYUr9dSvRCBEE' %}
-{% set wwwdir='/var/www' %}
-{% set omekadir=wwwdir ~ '/omeka' %}
+{% import "start.sls" as settings %}
 server_stuff:
   pkg:
     - installed
@@ -19,11 +15,11 @@ unzip:
     - name: |
         [ -f /tmp/omeka.zip ] || wget -nv http://omeka.org/files/omeka-2.1.4.zip -O /tmp/omeka.zip
         unzip -oq /tmp/omeka.zip -d /tmp
-        mkdir -p {{ omekadir }}
-        mv /tmp/omeka-2.1.4/* {{ omekadir }}
-        mv /tmp/omeka-2.1.4/.htaccess {{ omekadir }}
-        rm {{ omekadir }}/index.html
-    - unless: test -d {{ omekadir }}/themes/berlin
+        mkdir -p {{ settings.omekadir }}
+        mv /tmp/omeka-2.1.4/* {{ settings.omekadir }}
+        mv /tmp/omeka-2.1.4/.htaccess {{ settings.omekadir }}
+        rm {{ settings.omekadir }}/index.html
+    - unless: test -d {{ settings.omekadir }}/themes/berlin
 
 webdev:
   group.present
@@ -39,7 +35,7 @@ webify:
         chown -R root.webdev www 
 
         chmod 775 www
-        cd {{ omekadir }} 
+        cd {{ settings.omekadir }} 
         find . -type d | xargs chmod 775
         find . -type f | xargs chmod 664
         find files -type d | xargs chmod 777
@@ -51,17 +47,17 @@ mysql:
      - name: |
         mysql <<EOF
         create database omeka;
-        grant all privileges on omeka.* to 'ubuntu'@'localhost'     identified by '{{ dbpassword }}';
+        grant all privileges on omeka.* to 'ubuntu'@'localhost'     identified by '{{ settings.dbpassword }}';
         flush privileges;
         EOF
-        mysqladmin -u root password {{ dbrootpassword }}
+        mysqladmin -u root password {{ settings.dbrootpassword }}
 
-{{ omekadir }}/db.ini:
+{{ settings.omekadir }}/db.ini:
   file.managed:
-    - source: salt://omeka_db.ini
+    - source: salt://files/omeka_db.ini
     - template: jinja
     - defaults:
-        dbpassword: "{{ dbpassword }}"
+        dbpassword: "{{ settings.dbpassword }}"
 
 modrewrite:
   cmd.run:
@@ -72,11 +68,11 @@ modrewrite:
 
 /etc/apache2/apache2.conf:
   file.managed:
-    - source: salt://apache2.conf
+    - source: salt://files/apache2.conf
     
 /etc/apache2/sites-available/default:
   file.managed:
-    - source: salt://default
+    - source: salt://files/default
 
 apache2:
   service:
