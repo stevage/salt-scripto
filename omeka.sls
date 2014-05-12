@@ -1,4 +1,6 @@
+
 {% set dbpassword='banana' %}
+{% set dbrootpassword='xm98XVYUr9dSvRCBEE' %}
 {% set wwwdir='/var/www' %}
 {% set omekadir=wwwdir ~ '/omeka' %}
 server_stuff:
@@ -44,7 +46,6 @@ webify:
         find files -type f | xargs chmod 666
 
 mysql:
-  # todo change root password
   cmd.run:
      - require: [ pkg: server_stuff ]
      - name: |
@@ -53,6 +54,7 @@ mysql:
         grant all privileges on omeka.* to 'ubuntu'@'localhost'     identified by '{{ dbpassword }}';
         flush privileges;
         EOF
+        mysqladmin -u root password {{ dbrootpassword }}
 
 {{ omekadir }}/db.ini:
   file.managed:
