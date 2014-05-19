@@ -18,7 +18,7 @@ unzip:
         mkdir -p {{ settings.omekadir }}
         mv /tmp/omeka-2.1.4/* {{ settings.omekadir }}
         mv /tmp/omeka-2.1.4/.htaccess {{ settings.omekadir }}
-        rm {{ settings.omekadir }}/index.html
+        rm -f {{ settings.omekadir }}/index.html # In case installing into existing directory.
     - unless: test -d {{ settings.omekadir }}/themes/berlin
 
 webdev:
@@ -88,6 +88,8 @@ apache2:
   service:
     - running
     - reload: True
+    - enable: True
+    - require: [ file: /etc/apache2/sites-available/default, file: /etc/apache2/apache2.conf ]
 
 reload_apache:
   cmd.run:
