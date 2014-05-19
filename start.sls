@@ -3,3 +3,4 @@
 {% set dbrootpassword='xm98XVYUr9dSvRCBEE' %}
 {% set wwwdir='/var/www' %}
 {% set omekadir=wwwdir ~ '/omeka' %}
+{% set omekaplugins=['http://omeka.org/wordpress/wp-content/uploads/CSV-Import-2.0.2.zip'] %}

@@ -74,7 +74,21 @@ modrewrite:
   file.managed:
     - source: salt://files/default
 
+get_plugins:
+  cmd.run: 
+    - name: |
+        cd {{ settings.omekadir }}/plugins
+        {% for plugin in settings.omekaplugins|default([]) %}
+        wget -nc {{ plugin }}
+        {% endfor %}
+        unzip -n *.zip
+    
+
 apache2:
   service:
     - running
     - reload: True
+
+reload_apache:
+  cmd.run:
+    - name: "service apache2 reload"
