@@ -89,15 +89,15 @@ get_plugins:
   cmd.run: 
     - name: |
         cd {{ settings.omekadir }}/plugins
-        wget -A zip -r -l 1 -nd http://omeka.org/add-ons/plugins/
-        unzip '*.zip'
+        wget -A zip -r -l 0 -nd http://omeka.org/add-ons/plugins/
+        unzip -n '*.zip'
 # Download all themes, because why the hell not. Easier than getting them later.
 get_themes:
   cmd.run:
     - name: |
         cd {{ settings.omekadir }}/themes
-        wget -A zip -r -l 1 -nd http://omeka.org/add-ons/themes/
-        unzip '*.zip'    
+        wget -A zip -r -l 0 -nd http://omeka.org/add-ons/themes/
+        unzip -n '*.zip'    
 
 apache2:
   service:
