@@ -74,7 +74,7 @@ modrewrite:
   file.managed:
     - source: salt://files/default
 
-{#
+
 get_plugins:
   cmd.run: 
     - name: |
@@ -83,21 +83,33 @@ get_plugins:
         wget -nc {{ plugin }}
         {% endfor %}
         unzip -n '*.zip'
-#}
+get_themes:
+  cmd.run: 
+    - name: |
+        cd {{ settings.omekadir }}/themes
+        {% for themes in settings.omekathemes|default([]) %}
+        wget -nc {{ theme }}
+        {% endfor %}
+        unzip -n '*.zip'
 
+{#
+Trying to get *all* plugins just broke Omeka.
 get_plugins:
   cmd.run: 
     - name: |
         cd {{ settings.omekadir }}/plugins
         wget -A zip -r -l 0 -nd http://omeka.org/add-ons/plugins/
         unzip -n '*.zip'
-# Download all themes, because why the hell not. Easier than getting them later.
+#}        
+{# Download all themes, because why the hell not. Easier than getting them later.
 get_themes:
   cmd.run:
     - name: |
         cd {{ settings.omekadir }}/themes
         wget -A zip -r -l 0 -nd http://omeka.org/add-ons/themes/
         unzip -n '*.zip'    
+#}
+
 
 apache2:
   service:
