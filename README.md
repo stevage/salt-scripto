@@ -14,7 +14,7 @@ require some web-based manual configuration so this formula can only do about ha
 
 On a clean Ubuntu VM (only tested with Quantal):
 
-    sudo apt-get update && sudo apt-get install -y git-core curl
+    sudo apt-get update && sudo apt-get install -y git-core curl &&
     curl -L http://bootstrap.saltstack.org | sudo sh
     cd /srv
     sudo git clone http://github.com/stevage/salt-scripto salt

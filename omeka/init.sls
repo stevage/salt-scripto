@@ -87,7 +87,7 @@ get_themes:
   cmd.run: 
     - name: |
         cd {{ settings.omekadir }}/themes
-        {% for themes in settings.omekathemes|default([]) %}
+        {% for theme in settings.omekathemes|default([]) %}
         wget -nc {{ theme }}
         {% endfor %}
         unzip -n '*.zip'
