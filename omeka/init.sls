@@ -13,11 +13,11 @@ server_stuff:
 unzip:
   cmd.run:
     - name: |
-        [ -f /tmp/omeka.zip ] || wget -nv http://omeka.org/files/omeka-2.1.4.zip -O /tmp/omeka.zip
+        [ -f /tmp/omeka.zip ] || wget -nv http://omeka.org/files/omeka-2.2.2.zip -O /tmp/omeka.zip
         unzip -oq /tmp/omeka.zip -d /tmp
         mkdir -p {{ settings.omekadir }}
-        mv /tmp/omeka-2.1.4/* {{ settings.omekadir }}
-        mv /tmp/omeka-2.1.4/.htaccess {{ settings.omekadir }}
+        mv /tmp/omeka-2.2.2/* {{ settings.omekadir }}
+        mv /tmp/omeka-2.2.2/.htaccess {{ settings.omekadir }}
         rm -f {{ settings.omekadir }}/index.html # In case installing into existing directory.
     - unless: test -d {{ settings.omekadir }}/themes/berlin
 
