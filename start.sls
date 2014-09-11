@@ -9,7 +9,8 @@
 'http://omeka.org/wordpress/wp-content/uploads/Neatline-Time-2.0.3.zip',
 'http://omeka.org/wordpress/wp-content/uploads/NeatlineFeatures-2.0.5.zip',
 'http://omeka.org/wordpress/wp-content/uploads/Commenting-2.1.1.zip',
-'http://omeka.org/wordpress/wp-content/uploads/Simple-Vocab-2.0.1.zip'
+'http://omeka.org/wordpress/wp-content/uploads/Simple-Vocab-2.0.1.zip',
+'sudo wget http://omeka.org/wordpress/wp-content/uploads/Dropbox-0.7.2.zip'
 ] %}
 
 {% set omekathemes=[
